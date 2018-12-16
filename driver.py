@@ -1,10 +1,14 @@
 import scraping.py, analysis.py
-from flask import request, redirect
 
-@app.route('/signup', methods = ['POST'])
-def signup():
-    email = request.form['email']
-    print("The email address is '" + email + "'")
-    return redirect('/')
+# point of contact with HTML
+def generate_percentage(username):
 
-# This is the point of contact for the Flask app
+	# Generate scraped output for user's name
+	venmo_output = single_site(username)
+	cleaned_text = descriptions_cleaner(venmo_output)
+
+	# Pass scraped output to analysis methods
+	result = analysis(cleaned_text)
+
+	# This result is a whole number percentage, so return a formatted string
+	return "This person's likelihood of being a dealer is %s percent.".format(result)

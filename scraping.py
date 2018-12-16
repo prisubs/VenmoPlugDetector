@@ -24,10 +24,10 @@ def single_site(username):
 
 # Takes in a list of transactions in HTML format and returns a list of text
 # Output format: <div class="paymentpage-text m_five_t"> TEXT HERE </div>
-def descriptions_cleaner(list):
+def descriptions_cleaner(htmllist):
 	# Outputted text will be just text and not HOGWASH
 	no_html_bois = []
-	for div in list:
+	for div in htmllist:
 		# escape sequences yuhhhhh
 		DIV_HEAD = "<div class=\"paymentpage-text m_five_t\">"
 		DIV_TAIL = "</div>"
