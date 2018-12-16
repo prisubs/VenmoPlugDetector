@@ -3,5 +3,8 @@
 # Emoji functionality
 import emoji
 
-# Takes in a list of aliases and exports emojis
-def emoji_list_producer(aliases):
+# Function that outputs a list of emoji objects
+
+
+# This dictionary represents a bunch of emojis that indicate alcohol and drugs.
+alcohol_emojis = {}
