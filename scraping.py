@@ -8,6 +8,10 @@ import re # I know regex is bad, but sorry ok
 # Takes in a username string, and constructs the URL of their profile
 def single_site(username):
 
+	# We need to log into Venmo first, or else we can't see more than five requests
+	POST_LOGIN_URL = 'https://venmo.com/account/sign-in'
+	REQUEST_URL = 'https://my.freecycle.org/home/posts'
+
 	# Converting a username to a constructed URL
 	BASE_URL = "https://venmo.com/"
 	url = BASE_URL + username
@@ -21,6 +25,7 @@ def single_site(username):
 
 	# Now we have all of the user's payment box objects, but need to extract descriptions
 	return [str(box) for box in payment_boxes]
+
 
 
 # Takes in a list of transactions in HTML format and returns a list of text
