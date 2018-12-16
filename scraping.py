@@ -4,7 +4,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# single_site takes in a username string, and constructs the URL of their profile
+# Takes in a username string, and constructs the URL of their profile
 def single_site(username):
 
 	# Converting a username to a constructed URL
@@ -16,10 +16,16 @@ def single_site(username):
 	soup = BeautifulSoup(page.content, 'html.parser')
 	
 	# Venmo payment boxes have a certain pre-formatted ID in HTML
-	payment_boxes = soup.find_all(class_ = "m_five_t p_ten_r")
+	payment_boxes = soup.find_all(class_ = "paymentpage-text m_five_t")
 
 	# Now we have all of the user's payment box objects, but need to extract descriptions
-	print(payment_boxes)
+	return payment_boxes
+
+# Takes in a list of transactions in HTML format and returns a list of text
+# Output format: 
+def descriptions_cleaner(list):
+	return
+
 
 
 
