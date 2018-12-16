@@ -5,17 +5,14 @@ h1{
 
 }
 
-h2{
+label{
 	font-family: 'Roboto', sans-serif;
 	font-size: 30px;
 	margin-left: 30px;
 
 }
 
-h3{
+.button-text{
 	font-family: 'Roboto', sans-serif;
-	font-size: 25px;
-	margin-left: 30px;
-	text-align: center;
-
+	font-size: 20px;
 }
