@@ -3,6 +3,7 @@
 # Requests to grab URLs, BS4 for cleaning
 import requests
 from bs4 import BeautifulSoup
+import re # I know regex is bad, but sorry ok
 
 # Takes in a username string, and constructs the URL of their profile
 def single_site(username):
@@ -19,7 +20,7 @@ def single_site(username):
 	payment_boxes = soup.find_all(class_ = "paymentpage-text m_five_t")
 
 	# Now we have all of the user's payment box objects, but need to extract descriptions
-	return payment_boxes
+	return [str(box) for box in payment_boxes]
 
 
 # Takes in a list of transactions in HTML format and returns a list of text
@@ -33,11 +34,10 @@ def descriptions_cleaner(htmllist):
 		DIV_TAIL = "</div>"
 
 		# Stripping the HTML from the page - I thought bs4 did this but apparently not
-		div = div.replace(DIV_HEAD, '')
-		div = div.replace(DIV_TAIL, '')
+		last_boi = re.sub("<.*?>", "", div)
 
 		# Add it onto the final result
-		no_html_bois.append(div)
+		no_html_bois.append(last_boi)
 	return no_html_bois
 
 
