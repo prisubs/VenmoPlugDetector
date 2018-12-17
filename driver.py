@@ -11,4 +11,4 @@ def generate_percentage(username):
 	result = analysis(cleaned_text)
 
 	# This result is a whole number percentage, so return a formatted string
-	return "This person's likelihood of being a dealer is %s percent.".format(result)
+	return "%s's likelihood of being a dealer is %s percent.".format(username, result)
