@@ -17,15 +17,23 @@ def alias_translator(aliases):
 
 	return results
 
-ALCOHOL_ALIAS = ["tropical_drink", "wine_glass", "beer", "cocktail", "beers", "sake"]
-DRUG_ALIAS = ["smoking", "no_smoking", "pill", "dash", "leaves", "mushroom", "ear_of_rice"]
+def emoji_counter(clean_list):
+	ALCOHOL_ALIAS = ["tropical_drink", "wine_glass", "beer", "cocktail", "beers", "sake"]
+	DRUG_ALIAS = ["smoking", "no_smoking", "pill", "dash", "leaves", "mushroom", "ear_of_rice"]
 
-# running the emoji functions on these aliases
-alcohol_emojis = alias_translator(ALCOHOL_ALIAS)
-drug_emojis = alias_translator(DRUG_ALIAS)
+	# running the emoji functions on these aliases
+	alcohol_emojis = alias_translator(ALCOHOL_ALIAS)
+	drug_emojis = alias_translator(DRUG_ALIAS)
 
-# Making a masterlist of sinful emojis
-ILLICIT_EMOJIS = alcohol_emojis + drug_emojis
+	# Making a masterlist of sinful emojis
+	ILLICIT_EMOJIS = alcohol_emojis + drug_emojis
+
+	count = 0
+
+	for transaction in clean_list:
+		for character in transaction:
+			if character in ILLICIT_EMOJIS:
+				count += 1
 
 # Takes in a cleaned list and 
 def analysis(clean_list):
