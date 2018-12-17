@@ -27,4 +27,8 @@ drug_emojis = alias_translator(DRUG_ALIAS)
 # Making a masterlist of sinful emojis
 ILLICIT_EMOJIS = alcohol_emojis + drug_emojis
 
+# Takes in a cleaned list and 
+def analysis(clean_list):
+	return None
+
 
