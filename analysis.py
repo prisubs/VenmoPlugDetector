@@ -36,7 +36,9 @@ def emoji_counter(clean_list):
 				count += 1
 
 def phrase_counter(clean_list):
-	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", ""]
+	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud"]
+	DRUG_PHRASES = ["weed", "pills", "ecstasy", "broccoli", "plug", "codeine", "high", "buzzed", "stoned", "420", "smoke"]
+	VAPE_PHRASES = ["pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
 
 # Takes in a cleaned list and 
 def analysis(clean_list):
