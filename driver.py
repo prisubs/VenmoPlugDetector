@@ -4,8 +4,7 @@ import scraping.py, analysis.py
 def generate_percentage(username):
 
 	# Generate scraped output for user's name
-	venmo_output = single_site(username)
-	cleaned_text = descriptions_cleaner(venmo_output)
+	cleaned_text = venmo_scraper(username)
 
 	# Pass scraped output to analysis methods
 	result = analysis(cleaned_text)

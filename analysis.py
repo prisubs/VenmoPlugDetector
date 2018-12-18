@@ -17,7 +17,8 @@ def alias_translator(aliases):
 
 	return results
 
-def emoji_counter(clean_list):
+# Counts how many bad emojis are in transaction text
+def emoji_counter(clean):
 	ALCOHOL_ALIAS = ["tropical_drink", "wine_glass", "beer", "cocktail", "beers", "sake"]
 	DRUG_ALIAS = ["smoking", "no_smoking", "pill", "dash", "leaves", "mushroom", "ear_of_rice"]
 
@@ -30,13 +31,13 @@ def emoji_counter(clean_list):
 
 	count = 0
 
-	for transaction in clean_list:
-		for character in transaction:
-			if character in ILLICIT_EMOJIS:
-				count += 1
+	for character in clean:
+		if character in ILLICIT_EMOJIS:
+			count += 1
 	return count
 
-def phrase_counter(clean_list):
+
+def phrase_counter(clean):
 	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud"]
 	DRUG_PHRASES = ["weed", "pills", "ecstasy", "broccoli", "plug", "codeine", "high", "buzzed", "stoned", "420", "smoke"]
 	VAPE_PHRASES = ["pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
