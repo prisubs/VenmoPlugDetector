@@ -39,10 +39,19 @@ def descriptions_cleaner(htmllist):
 		no_html_bois.append(last_boi)
 	return no_html_bois
 
+def string_ify(cleaned):
+	result = ""
+	for payment in cleaned:
+		for word in payment:
+			result.append(word)
+	return result
+
+
 def venmo_scraper(username):
 	RAW = single_site(username)
 	CLEAN = descriptions_cleaner(RAW)
-	return CLEAN
+	FIN = string_ify(CLEAN)
+	return FIN
 
 
 

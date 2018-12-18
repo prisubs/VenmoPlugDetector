@@ -40,8 +40,8 @@ def phrase_counter(clean_list):
 	DRUG_PHRASES = ["weed", "pills", "ecstasy", "broccoli", "plug", "codeine", "high", "buzzed", "stoned", "420", "smoke"]
 	VAPE_PHRASES = ["pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
 
-# Takes in a cleaned list and 
+# Takes in a cleaned list and apply all analysis functions to it
 def analysis(clean_list):
-	return None
+	return None # placeholder
 
 
