@@ -34,6 +34,7 @@ def emoji_counter(clean_list):
 		for character in transaction:
 			if character in ILLICIT_EMOJIS:
 				count += 1
+	return count
 
 def phrase_counter(clean_list):
 	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud"]
