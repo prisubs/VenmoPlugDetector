@@ -48,8 +48,7 @@ def descriptions_cleaner(htmllist):
 def string_ify(cleaned):
 	result = ""
 	for payment in cleaned:
-		for word in payment:
-			result.append(word)
+		result.append(payment)
 	return result
 
 # Cleaning driver
