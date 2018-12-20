@@ -16,7 +16,7 @@ def function_pass(username):
 def output_determination(ANALYZED_VALUE, username):
 	OUT_BASE = "Some words we found are "
 	PHRASES = what_we_found_doe(username)
-	PHRASEBOI = OUT_BASE + PHRASES
+	PHRASEBOI = OUT_BASE + str(PHRASES)
 
 	if ANALYZED_VALUE < 1:
 		return "This person is unlikely to be engaging in illicit transactions." + PHRASEBOI
