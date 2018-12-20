@@ -8,14 +8,18 @@ def function_pass(username):
 	# Count of bad terms found in transactions
 	ANALYZED_VALUE = analysis(CLEANED_OUTPUT) 
 	# Outputted string based on count
-	FINAL_STATEMENT = output_determination(ANALYZED_VALUE)
+	FINAL_STATEMENT = output_determination(ANALYZED_VALUE, username)
 
 	return FINAL_STATEMENT # Outputs a string
 
 # Takes in a whole number bad word count, returns appropriate string
-def output_determination(ANALYZED_VALUE):
+def output_determination(ANALYZED_VALUE, username):
+	OUT_BASE = "Some words we found are "
+	PHRASES = what_we_found_doe(username)
+	PHRASEBOI = OUT_BASE + PHRASES
+
 	if ANALYZED_VALUE < 1:
-		return "This person is unlikely to be engaging in illicit transactions."
+		return "This person is unlikely to be engaging in illicit transactions." + PHRASEBOI
 	else:
-		return "This person might be up to something. The Venmo Snitch found shady phrases!"
+		return "This person might be up to something. The Venmo Snitch found shady phrases!" + PHRASEBOI
 

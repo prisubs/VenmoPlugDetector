@@ -5,6 +5,10 @@ import requests
 from bs4 import BeautifulSoup
 import re # I know regex is bad, but sorry ok
 
+# To remove stopwords for HTML outputting purposes
+from nltk.corpus import stopwords 
+from nltk.tokenize import word_tokenize 
+
 # Takes in a username string, and constructs the URL of their profile
 def single_site(username):
 
@@ -40,6 +44,7 @@ def descriptions_cleaner(htmllist):
 		no_html_bois.append(last_boi)
 	return no_html_bois
 
+# Turns a list of sets of words into just a list of words
 def string_ify(cleaned):
 	result = ""
 	for payment in cleaned:
@@ -47,11 +52,23 @@ def string_ify(cleaned):
 			result.append(word)
 	return result
 
+# Cleaning driver
 def venmo_scraper(username):
 	RAW = single_site(username)
 	CLEAN = descriptions_cleaner(RAW)
 	FIN = string_ify(CLEAN)
 	return FIN
+
+# I thought I'd need to show proof on HTML that I was actually scraping, so I'll do a remove stop words output 
+def what_we_found_doe(username):
+	OUT =  single_site(username) # yeah thats some bad repetitive code
+	FIN = descriptions_cleaner(OUT) # list of lists
+
+	# Time for some W I L D nltk
+	stop_words = set(stopwords.words('english'))
+	result = [word for word in FIN if word not in stop_words]
+
+	return result # List without the stopwords
 
 
 
