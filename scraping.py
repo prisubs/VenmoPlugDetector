@@ -17,6 +17,7 @@ def single_site(username):
 	soup = BeautifulSoup(page.content, 'html.parser')
 	
 	# Venmo payment boxes have a certain pre-formatted ID in HTML
+	# This only applies to the web version as of 12/20. They may switch it up idk
 	payment_boxes = soup.find_all(class_ = "paymentpage-text m_five_t")
 
 	# Now we have all of the user's payment box objects, but need to extract descriptions
@@ -45,7 +46,6 @@ def string_ify(cleaned):
 		for word in payment:
 			result.append(word)
 	return result
-
 
 def venmo_scraper(username):
 	RAW = single_site(username)
