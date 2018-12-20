@@ -1,4 +1,6 @@
 # VenmoPlugDetector
+The reason I write this verbose description is to explain the methodology behind this random project.
+
 Sudhir Venkatesh was, a man who lived inside of Chicago's worst housing projects for years; not out of choice, but as an interesting social experiment. He hung out with gang members, drug dealers, and some of the most dangerous people one could imagine - all to do some economic research for his graduate studies. After he roamed the South Side all day, he'd return to his comfortable, real life in Hyde Park, where he studied economics at the University of Chicago.
 
 But why was this necessary? Doesn't the government collect plenty of data on socioeconomic indicators like drug usage rates, habits, and the various epidemics going on, already? Yeah, they do - but there's a critical flaw with their method of data collection that renders any "official" information on black-market operations at least mildly flawed, assuming the data has any degree of accuracy at all. The response bias is one of the first experimental constraints taught in statistics classes, yet, the government doesn't attempt to control it at all.
