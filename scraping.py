@@ -1,13 +1,13 @@
 # Scraping scripts
 
 # Requests to grab URLs, BS4 for cleaning
-import requests
+from requests import get
 from bs4 import BeautifulSoup
 import re # I know regex is bad, but sorry ok
 
 # To remove stopwords for HTML outputting purposes
-from nltk.corpus import stopwords 
 from nltk.tokenize import word_tokenize 
+from stop import stopwords
 
 # Takes in a username string, and constructs the URL of their profile
 def single_site(username):
@@ -17,7 +17,7 @@ def single_site(username):
 	url = 'https://venmo.com/' + username
 
 	# Opening URL
-	page = requests.get(url)
+	page = get(url)
 	soup = BeautifulSoup(page.content, 'html.parser')
 	
 	# Venmo payment boxes have a certain pre-formatted ID in HTML
@@ -48,7 +48,7 @@ def descriptions_cleaner(htmllist):
 def string_ify(cleaned):
 	result = ""
 	for payment in cleaned:
-		result.append(payment)
+		result += payment + " "
 	return result
 
 # Cleaning driver
@@ -64,7 +64,7 @@ def what_we_found_doe(username):
 	FIN = descriptions_cleaner(OUT) # list of lists
 
 	# Time for some W I L D nltk
-	stop_words = set(stopwords.words('english'))
+	stop_words = stopwords()
 	result = [word for word in FIN if word not in stop_words]
 
 	return result # List without the stopwords
