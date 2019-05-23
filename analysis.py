@@ -39,8 +39,9 @@ def emoji_counter(clean):
 
 def phrase_counter(clean):
 	# Lists of presumably bad words and their synonyms
-	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud"]
-	DRUG_PHRASES = ["weed", "pills", "ecstasy", "broccoli", "plug", "codeine", "high", "buzzed", "stoned", "420", "smoke"]
+	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud", "drank"]
+	DRUG_PHRASES = ["weed", "pills", "ecstasy", "broccoli", "plug", "codeine", 
+	"high", "buzzed", "stoned", "420", "smoke", "popper"]
 	VAPE_PHRASES = ["pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
 	BAD_BOIS = ALCOHOL_PHRASES + DRUG_PHRASES + VAPE_PHRASES
 
@@ -59,6 +60,6 @@ def analysis(clean_list):
 	BAD_WORDS = phrase_counter(clean_list)
 
 	TOTAL_SIN = BAD_EMOJIS + BAD_WORDS
-	return TOTAL_SIN # yeet
+	return TOTAL_SIN 
 
 

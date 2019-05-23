@@ -23,9 +23,23 @@ def output_determination(ANALYZED_VALUE, username):
 	else:
 		return "This person might be up to something. The Venmo Snitch found shady phrases!" + PHRASEBOI
 
-# function_pass(username) 
 
-# Python driver for testing purposes
-uid = input("Enter a username to test ")
-out = function_pass(uid)
-print(out)
+from flask import Flask, render_template, request          
+app = Flask(__name__)
+
+@app.route("/")
+def my_form():
+    return render_template("formtester.html")
+
+@app.route('/', methods=['POST'])
+def my_form_post():
+    text = request.form['text']
+    processed_text = function_pass(text)
+    return processed_text
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+#uid = input("Enter a username to test ")
+#out = function_pass(uid)
+#print(out)
