@@ -1,8 +1,8 @@
-	def stopwords():
-		return ["a", "about", "above", "after", "again", "against", 
-		"ain", "all", "am", "an", "and", "any", "are", "aren", "aren't", 
-		"as", "at", "be", "because", "been", "before", "being", "below", 
-		"between", "both", "but", "by", "can", "couldn", "couldn't", "d",
+def stopwords():
+	return ["a", "about", "above", "after", "again", "against",
+	"ain", "all", "am", "an", "and", "any", "are", "aren", "aren't",
+	"as", "at", "be", "because", "been", "before", "being", "below",
+	"between", "both", "but", "by", "can", "couldn", "couldn't", "d",
 	 	"did", "didn", "didn't", "do", "does", "doesn", "doesn't", "doing",
 	  	"don", "don't", "down", "during", "each", "few", "for", "from", 
 	  	"further", "had", "hadn", "hadn't", "has", "hasn", "hasn't", "have", 

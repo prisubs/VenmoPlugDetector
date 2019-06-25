@@ -1,6 +1,3 @@
-# These scripts will form an analysis of a user's Venmo activity.
-# Final output should be a whole number count, casted to String.
-
 # Emoji functionality
 import emoji
 

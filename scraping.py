@@ -6,8 +6,7 @@ from bs4 import BeautifulSoup
 import re # I know regex is bad, but sorry ok
 
 # To remove stopwords for HTML outputting purposes
-from nltk.tokenize import word_tokenize 
-from stop import stopwords
+from nltk.tokenize import word_tokenize
 
 # Takes in a username string, and constructs the URL of their profile
 def single_site(username):
@@ -64,10 +63,7 @@ def what_we_found_doe(username):
 	FIN = descriptions_cleaner(OUT) # list of lists
 
 	# Time for some W I L D nltk
-	stop_words = stopwords()
-	result = [word for word in FIN if word not in stop_words]
 
-	return result # List without the stopwords
-
+	return FIN # TODO this isn't formatted properly
 
 

@@ -1,5 +1,6 @@
 # This file just drives the other two.
-import scraping, analysis 
+import scraping, analysis
+from wtforms import Form, StringField, SubmitField, validators
 
 # Takes in a string username, returns a string describing activity
 def function_pass(username):
@@ -14,9 +15,8 @@ def function_pass(username):
 
 # Takes in a whole number bad word count, returns appropriate string
 def output_determination(ANALYZED_VALUE, username):
-	OUT_BASE = "Some words we found are "
 	PHRASES = scraping.what_we_found_doe(username)
-	PHRASEBOI = OUT_BASE + str(PHRASES)
+	PHRASEBOI = "Some words we found are {0}.".format(str(PHRASES))
 
 	if ANALYZED_VALUE < 1:
 		return "This person is unlikely to be engaging in illicit transactions." + PHRASEBOI
@@ -27,19 +27,19 @@ def output_determination(ANALYZED_VALUE, username):
 from flask import Flask, render_template, request          
 app = Flask(__name__)
 
-@app.route("/")
-def my_form():
-    return render_template("formtester.html")
+class UsernameForm(Form):
+	query = StringField("Enter a username: ", validators=[validators.data_required()])
+	submit = SubmitField('Snitch time!')
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def my_form_post():
-    text = request.form['text']
-    processed_text = function_pass(text)
-    return processed_text
+	form = UsernameForm(request.form)
+	if request.method == 'POST':
+		text = request.form['query']
+		processed_text = function_pass(text)
+		return render_template('result.html', output=processed_text)
+	elif request.method == 'GET':
+		return render_template('index.html', form=form)
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
-#uid = input("Enter a username to test ")
-#out = function_pass(uid)
-#print(out)
+	app.run(debug=True)
