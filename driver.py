@@ -16,7 +16,7 @@ def function_pass(username):
 # Takes in a whole number bad word count, returns appropriate string
 def output_determination(ANALYZED_VALUE, username):
 	PHRASES = scraping.what_we_found_doe(username)
-	PHRASEBOI = "Some words we found are {0}.".format(str(PHRASES))
+	PHRASEBOI = " Some words we found are {0}.".format(str(PHRASES)[1:-1])
 
 	if ANALYZED_VALUE < 1:
 		return "This person is unlikely to be engaging in illicit transactions." + PHRASEBOI

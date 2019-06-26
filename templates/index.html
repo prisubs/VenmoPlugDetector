@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Venmo Plug Detector</title>
 </head>
+<h1>Venmo Plug Detector</h1>
 <body>
-
     <form action="" method="post">
         <p>
             {{ form.query.label }}
-            <br>
             {{ form.query }}
         </p>
-        <p>{{ form.submit() }}</p>
+        <p>{{ form.submit(class_="but") }}</p>
     </form>
 
 </body>
