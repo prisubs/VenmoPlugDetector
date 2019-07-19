@@ -1,6 +1,5 @@
 from analysis import *
 from scraping import *
-from pandas import Series
 
 def generate_output(username):
     payment_text = payment_box_list(username)

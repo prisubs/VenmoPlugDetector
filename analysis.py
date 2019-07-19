@@ -1,9 +1,7 @@
 import pandas as pd
 
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import GaussianNB
 
 import _pickle as cPickle
 
@@ -12,7 +10,7 @@ bag_of_words = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud"
 bad_fp = "data/illicit.txt"
 good_fp = "data/clean.txt"
 
-MODEL_FP = "logreg.pkl"
+MODEL_FP = "bayesianNB.pkl"
 
 '''
 [INPUT] list of unlabeled observations
@@ -82,7 +80,7 @@ def testing_pipeline(unlabeled_data):
 [OUTPUT] sklearn Model object to be serialized
 '''
 def generate_model(X_train, Y_train):
-	model = LogisticRegression(solver='lbfgs')
+	model = GaussianNB()
 	model.fit(X_train, Y_train)
 	return model
 
