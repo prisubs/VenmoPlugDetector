@@ -1,62 +1,112 @@
-# Emoji functionality
-import emoji
+import pandas as pd
 
-# Function that outputs a list of emoji objects, takes in a list of alias strings
-def alias_translator(aliases):
-	results = []
-	BASE = ":"
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
-	for alias in aliases:
-		# The emojize function looks up an emoji by an english alias
-		emo_boi = emoji.emojize(BASE + alias + BASE)
-		# Creating a list of emoji objects
-		results.append(emo_boi)
+import _pickle as cPickle
 
-	return results
+bag_of_words = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud", "drank", "weed", "pills", "ecstasy", "broccoli", "plug", "codeine", "high", "buzzed", "stoned", "420", "smoke", "popper", "pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
 
-# Counts how many bad emojis are in transaction text
-def emoji_counter(clean):
-	ALCOHOL_ALIAS = ["tropical_drink", "wine_glass", "beer", "cocktail", "beers", "sake"]
-	DRUG_ALIAS = ["smoking", "no_smoking", "pill", "dash", "leaves", "mushroom", "ear_of_rice"]
+bad_fp = "data/illicit.txt"
+good_fp = "data/clean.txt"
 
-	# running the emoji functions on these aliases
-	alcohol_emojis = alias_translator(ALCOHOL_ALIAS)
-	drug_emojis = alias_translator(DRUG_ALIAS)
+MODEL_FP = "logreg.pkl"
 
-	# Making a masterlist of sinful emojis
-	ILLICIT_EMOJIS = alcohol_emojis + drug_emojis
+'''
+[INPUT] list of unlabeled observations
+[OUTPUT] list of data to render on website
+'''
+def unlabeled_runner(observations):
+	features = bow_featurizer(observations)
+	model = retrieve_model(MODEL_FP)
+	predictions = model.predict(features)
+	return predictions
 
-	count = 0
+'''
+[INPUT] filepath to where model should be pickled
+[OUTPUT] none, writes a pickled logistic regression model
+'''
+def model_runner(filepath):
+	df = read_training_data(bad_fp, good_fp)
+	X, Y = training_pipeline(df)
+	model = generate_model(X, Y)
+	write_model(model, filepath)
 
-	for character in clean:
-		if character in ILLICIT_EMOJIS:
-			count += 1
-	return count
+'''
+[INPUT] filepaths of illicit and clean newline-delimited training data
+[OUTPUT] dataframe containing payment texts and labels
+'''
+def read_training_data(bad_filepath, good_filepath):
+	bad_data = pd.read_csv(bad_filepath, sep="\n", header=None)
+	good_data = pd.read_csv(good_filepath, sep="\n", header=None)
+	bad_data["label"] = pd.Series([1] * len(bad_data))
+	good_data["label"] = pd.Series([0] * len(good_data))
+
+	df = pd.concat([bad_data, good_data])
+	df = df.rename({0: "payment_text"}, axis=1)
+	return df
+
+'''
+[INPUT] labeled, textual training data
+[OUTPUT] train_test split data ready to be put into a model
+'''
+def training_pipeline(labeled_data):
+	X = bow_featurizer(labeled_data["payment_text"])
+	Y = labeled_data["label"]
+	return X, Y
+
+'''
+[INPUT] list of payment texts
+[OUTPUT] bag of words, transposed and returned as a df
+'''
+def bow_featurizer(payment_text_array):
+	vectorizer = CountVectorizer()
+	vectorizer.fit(bag_of_words)
+	bow_ohe = vectorizer.transform(payment_text_array).toarray()
+
+	features = pd.DataFrame(bow_ohe)
+	return features
+
+'''
+[INPUT] list of payment box texts from scraping.py
+[OUTPUT] feature matrix to run model.predict() on
+'''
+def testing_pipeline(unlabeled_data):
+	feature_matrix = bow_featurizer(unlabeled_data)
+	return feature_matrix
+
+'''
+[INPUT] feature matrix with labels
+[OUTPUT] sklearn Model object to be serialized
+'''
+def generate_model(X_train, Y_train):
+	model = LogisticRegression(solver='lbfgs')
+	model.fit(X_train, Y_train)
+	return model
+
+'''
+[INPUT] filepath to a serialized model
+[OUTPUT] a model to use for predicting on unlabeled data
+'''
+def retrieve_model(filepath):
+	with open(filepath, 'rb') as fid:
+		model_loaded = cPickle.load(fid)
+	return model_loaded
+
+'''
+[INPUT] sklearn Model object to be pickled, filepath to pickle
+[OUTPUT] none
+[EFFECT] writes a serialized model to specified filepath
+'''
+def write_model(model, fp):
+	with open(fp, 'wb') as fid:
+		cPickle.dump(model, fid)
 
 
-def phrase_counter(clean):
-	# Lists of presumably bad words and their synonyms
-	ALCOHOL_PHRASES = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud", "drank"]
-	DRUG_PHRASES = ["weed", "pills", "ecstasy", "broccoli", "plug", "codeine", 
-	"high", "buzzed", "stoned", "420", "smoke", "popper"]
-	VAPE_PHRASES = ["pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
-	BAD_BOIS = ALCOHOL_PHRASES + DRUG_PHRASES + VAPE_PHRASES
+bad_aliases = ["tropical_drink", "wine_glass", "beer", "cocktail", "beers", "sake", "smoking", "no_smoking", "pill", "dash", "leaves", "mushroom", "ear_of_rice"]
+model_runner(MODEL_FP)
 
-	count = 0 # Tally up how many sinful terms are in the transaction text list
-	for word in clean:
-		if word in BAD_BOIS:
-			count += 1
-
-	return count
-
-
-# Takes in a cleaned list and apply all analysis functions to it
-def analysis(clean_list):
-	# Summing up the shadiness of the individual
-	BAD_EMOJIS = emoji_counter(clean_list)
-	BAD_WORDS = phrase_counter(clean_list)
-
-	TOTAL_SIN = BAD_EMOJIS + BAD_WORDS
-	return TOTAL_SIN 
 
 
