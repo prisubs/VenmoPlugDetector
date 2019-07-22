@@ -5,6 +5,8 @@ from sklearn.naive_bayes import GaussianNB
 
 import _pickle as cPickle
 
+from emoji_handling import emoji_ratio, emoji_ohe
+
 bag_of_words = ["alc", "alcohol", "bubbly", "champagne", "drinks", "beer", "bud", "drank", "weed", "pills", "ecstasy", "broccoli", "plug", "codeine", "high", "buzzed", "stoned", "420", "smoke", "popper", "pods", "pod", "juul", "suorin", "vape", "vaping", "vape"]
 
 bad_fp = "data/illicit.txt"
@@ -57,7 +59,7 @@ def training_pipeline(labeled_data):
 
 '''
 [INPUT] list of payment texts
-[OUTPUT] bag of words, transposed and returned as a df
+[OUTPUT] bag of words, emoji ratio, emoji one-hot-encoding transposed and returned as a df
 '''
 def bow_featurizer(payment_text_array):
 	vectorizer = CountVectorizer()
@@ -65,7 +67,12 @@ def bow_featurizer(payment_text_array):
 	bow_ohe = vectorizer.transform(payment_text_array).toarray()
 
 	features = pd.DataFrame(bow_ohe)
-	return features
+	payment_text_array = pd.Series(payment_text_array)
+	er = payment_text_array.apply(emoji_ratio)
+	eohe = payment_text_array.apply(emoji_ohe)
+	df=pd.concat([features, er, eohe], axis=0)
+	print(df.head())
+	return df
 
 '''
 [INPUT] list of payment box texts from scraping.py
@@ -102,8 +109,6 @@ def write_model(model, fp):
 	with open(fp, 'wb') as fid:
 		cPickle.dump(model, fid)
 
-
-bad_aliases = ["tropical_drink", "wine_glass", "beer", "cocktail", "beers", "sake", "smoking", "no_smoking", "pill", "dash", "leaves", "mushroom", "ear_of_rice"]
 model_runner(MODEL_FP)
 
 

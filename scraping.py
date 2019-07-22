@@ -7,7 +7,7 @@ def single_site(username):
 	url = 'https://venmo.com/' + username
 	page = get(url)
 	soup = BeautifulSoup(page.content, 'html.parser')
-	payment_boxes = soup.find_all(class_ = "paymentpage-text m_five_t")
+	payment_boxes = soup.find_all(class_="paymentpage-text m_five_t")
 	return [str(box) for box in payment_boxes]
 
 
@@ -20,7 +20,7 @@ def descriptions_cleaner(htmllist):
 
 
 def payment_box_list(username):
-	raw =  single_site(username)
+	raw = single_site(username)
 	cleaned = descriptions_cleaner(raw)
 	return cleaned
 
