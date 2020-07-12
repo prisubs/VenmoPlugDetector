@@ -130,7 +130,7 @@ urllib3==1.21.1
 wasabi==0.2.2
 wcwidth==0.1.7
 webencodings==0.5.1
-Werkzeug==0.15.2
+Werkzeug==0.15.3
 widgetsnbextension==3.4.2
 WTForms==2.2.1
 zipp==0.5.1
