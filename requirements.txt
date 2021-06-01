@@ -126,7 +126,7 @@ tornado==6.0.2
 tqdm==4.31.1
 traitlets==4.3.2
 tweepy==3.7.0
-urllib3==1.21.1
+urllib3==1.26.5
 wasabi==0.2.2
 wcwidth==0.1.7
 webencodings==0.5.1
